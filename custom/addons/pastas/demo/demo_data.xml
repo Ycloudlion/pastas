@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <!-- Configuración DGI de demostración -->
+        <record id="demo_dgi_config" model="dgi.config">
+            <field name="company_id" ref="base.main_company"/>
+            <field name="ruc">12345678</field>
+            <field name="dv">1</field>
+            <field name="company_name">Empresa Demo S.A.</field>
+            <field name="commercial_name">Demo Corp</field>
+            <field name="address">Calle 50, Edificio Plaza, Piso 15, Ciudad de Panamá</field>
+            <field name="phone">+507 1234-5678</field>
+            <field name="email">demo@empresa.com</field>
+            <field name="pac_provider">iofacturo</field>
+            <field name="pac_environment">test</field>
+            <field name="pac_username">demo_user</field>
+            <field name="pac_password">demo_password</field>
+            <field name="pac_url">https://test.iofacturo.com/api</field>
+            <field name="invoice_sequence_id" ref="seq_electronic_invoice"/>
+            <field name="credit_note_sequence_id" ref="seq_electronic_credit_note"/>
+            <field name="debit_note_sequence_id" ref="seq_electronic_debit_note"/>
+        </record>
+        
+        <!-- Cliente de demostración -->
+        <record id="demo_partner" model="res.partner">
+            <field name="name">Cliente Demo S.A.</field>
+            <field name="ruc">87654321</field>
+            <field name="dv">2</field>
+            <field name="commercial_name">Cliente Demo</field>
+            <field name="street">Avenida Balboa, Edificio Torre, Piso 10</field>
+            <field name="phone">+507 8765-4321</field>
+            <field name="email">cliente@demo.com</field>
+            <field name="is_company">True</field>
+            <field name="customer_rank">1</field>
+        </record>
+        
+        <!-- Proveedor de demostración -->
+        <record id="demo_supplier" model="res.partner">
+            <field name="name">Proveedor Demo S.A.</field>
+            <field name="ruc">11223344</field>
+            <field name="dv">3</field>
+            <field name="commercial_name">Proveedor Demo</field>
+            <field name="street">Calle 50, Edificio Comercial, Local 5</field>
+            <field name="phone">+507 5555-6666</field>
+            <field name="email">proveedor@demo.com</field>
+            <field name="is_company">True</field>
+            <field name="supplier_rank">1</field>
+        </record>
+        
+    </data>
+</odoo>

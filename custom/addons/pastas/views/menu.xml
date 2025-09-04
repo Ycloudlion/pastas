@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!-- Menu principal de facturacion electronica -->
+        <menuitem id="menu_electronic_invoicing" 
+                  name="Facturacion Electronica" 
+                  parent="account.menu_finance" 
+                  sequence="50"/>
+        
+        <!-- Submenu de configuracion -->
+        <menuitem id="menu_dgi_config" 
+                  name="Configuracion DGI" 
+                  parent="menu_electronic_invoicing" 
+                  action="action_dgi_config" 
+                  sequence="10"/>
+        
+        <!-- Submenu de facturas electronicas -->
+        <menuitem id="menu_electronic_invoices" 
+                  name="Facturas Electronicas" 
+                  parent="menu_electronic_invoicing" 
+                  action="action_electronic_invoice" 
+                  sequence="20"/>
+        
+        <!-- Submenu de reportes -->
+        <menuitem id="menu_electronic_reports" 
+                  name="Reportes" 
+                  parent="menu_electronic_invoicing" 
+                  sequence="30"/>
+        
+        <!-- Reporte de facturas electronicas -->
+        <menuitem id="menu_electronic_invoice_report" 
+                  name="Reporte de Facturas Electronicas" 
+                  parent="menu_electronic_reports" 
+                  action="action_electronic_invoice_report_wizard" 
+                  sequence="10"/>
+        
+    </data>
+</odoo>

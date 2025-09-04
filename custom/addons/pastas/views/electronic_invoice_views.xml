@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!-- Vista de formulario para factura electrónica -->
+        <record id="view_electronic_invoice_form" model="ir.ui.view">
+            <field name="name">electronic.invoice.form</field>
+            <field name="model">electronic.invoice</field>
+            <field name="arch" type="xml">
+                <form string="Factura Electrónica">
+                    <header>
+                        <button name="generate_xml" string="Generar XML" type="object" 
+                                class="btn-primary" invisible="state != 'draft'"/>
+                        <button name="send_to_dgi" string="Enviar al DGI" type="object" 
+                                class="btn-primary" invisible="state not in ['draft', 'sent']"/>
+                        <button name="check_status" string="Verificar Estado" type="object" 
+                                class="btn-secondary" invisible="state != 'sent'"/>
+                        <button name="cancel_invoice" string="Cancelar" type="object" 
+                                class="btn-danger" invisible="state not in ['draft', 'sent']"/>
+                        <field name="state"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" readonly="1"/>
+                            </h1>
+                        </div>
+                        
+                        <group>
+                            <group string="Información del Documento">
+                                <field name="document_type"/>
+                                <field name="number" readonly="state in ['draft', 'sent']"/>
+                                <field name="invoice_date"/>
+                                <field name="due_date"/>
+                                <field name="authorization_date" readonly="state != 'authorized'"/>
+                            </group>
+                            <group string="Montos">
+                                <field name="amount_untaxed"/>
+                                <field name="amount_tax"/>
+                                <field name="amount_total"/>
+                                <field name="currency_id"/>
+                            </group>
+                        </group>
+                        
+                        <group>
+                            <group string="Cliente">
+                                <field name="partner_id" options="{'no_create': True}"/>
+                            </group>
+                            <group string="Códigos de Respuesta">
+                                <field name="response_code"/>
+                                <field name="authorization_code" readonly="state != 'authorized'"/>
+                            </group>
+                        </group>
+                        
+                        <notebook>
+                            <page string="Archivos XML">
+                                <group>
+                                    <field name="xml_request" widget="binary" filename="xml_filename" 
+                                           readonly="not xml_request"/>
+                                    <field name="xml_filename" invisible="1"/>
+                                    <field name="xml_response" widget="binary" filename="xml_response_filename" 
+                                           readonly="not xml_response"/>
+                                    <field name="xml_response_filename" invisible="1"/>
+                                </group>
+                            </page>
+                            
+                            <page string="Información Técnica">
+                                <group>
+                                    <field name="uuid"/>
+                                    <field name="hash"/>
+                                    <field name="response_message" widget="text"/>
+                                </group>
+                            </page>
+                            
+                            <page string="Notas">
+                                <field name="notes" widget="text"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Vista de lista para facturas electrónicas -->
+        <record id="view_electronic_invoice_tree" model="ir.ui.view">
+            <field name="name">electronic.invoice.tree</field>
+            <field name="model">electronic.invoice</field>
+            <field name="arch" type="xml">
+                <list string="Facturas Electrónicas" decoration-success="state == 'authorized'" 
+                      decoration-warning="state == 'sent'" decoration-danger="state == 'rejected'">
+                    <field name="name"/>
+                    <field name="number"/>
+                    <field name="partner_id"/>
+                    <field name="document_type"/>
+                    <field name="invoice_date"/>
+                    <field name="amount_total"/>
+                    <field name="currency_id"/>
+                    <field name="state" widget="label_selection"/>
+                    <field name="authorization_code"/>
+                </list>
+            </field>
+        </record>
+        
+        <!-- Vista de búsqueda para facturas electrónicas -->
+        <record id="view_electronic_invoice_search" model="ir.ui.view">
+            <field name="name">electronic.invoice.search</field>
+            <field name="model">electronic.invoice</field>
+            <field name="arch" type="xml">
+                <search string="Buscar Facturas Electrónicas">
+                    <field name="name"/>
+                    <field name="number"/>
+                    <field name="partner_id"/>
+                    <field name="document_type"/>
+                    <separator/>
+                    <filter string="Borrador" name="draft" domain="[('state', '=', 'draft')]"/>
+                    <filter string="Enviado" name="sent" domain="[('state', '=', 'sent')]"/>
+                    <filter string="Autorizado" name="authorized" domain="[('state', '=', 'authorized')]"/>
+                    <filter string="Rechazado" name="rejected" domain="[('state', '=', 'rejected')]"/>
+                    <filter string="Cancelado" name="cancelled" domain="[('state', '=', 'cancelled')]"/>
+                    <separator/>
+                    <filter string="Facturas" name="invoices" domain="[('document_type', '=', '01')]"/>
+                    <filter string="Notas de Crédito" name="credit_notes" domain="[('document_type', '=', '02')]"/>
+                    <filter string="Notas de Débito" name="debit_notes" domain="[('document_type', '=', '03')]"/>
+                    <separator/>
+                    <filter string="Hoy" name="today" domain="[('invoice_date', '=', context_today())]"/>
+                    <filter string="Esta Semana" name="this_week" domain="[('invoice_date', '>=', (context_today() - datetime.timedelta(days=context_today().weekday())).strftime('%Y-%m-%d')), ('invoice_date', '&lt;=', (context_today() + datetime.timedelta(days=6-context_today().weekday())).strftime('%Y-%m-%d'))]"/>
+                    <separator/>
+                    <group expand="0" string="Agrupar Por">
+                        <filter string="Estado" name="group_state" context="{'group_by': 'state'}"/>
+                        <filter string="Tipo de Documento" name="group_document_type" context="{'group_by': 'document_type'}"/>
+                        <filter string="Cliente" name="group_partner" context="{'group_by': 'partner_id'}"/>
+                        <filter string="Fecha" name="group_date" context="{'group_by': 'invoice_date'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <!-- Vista de kanban para facturas electrónicas -->
+        <record id="view_electronic_invoice_kanban" model="ir.ui.view">
+            <field name="name">electronic.invoice.kanban</field>
+            <field name="model">electronic.invoice</field>
+            <field name="arch" type="xml">
+                <kanban string="Facturas Electrónicas">
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="amount_total"/>
+                    <field name="state"/>
+                    <field name="document_type"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_card oe_kanban_global_click">
+                                <div class="oe_kanban_content">
+                                    <div class="o_kanban_record_top">
+                                        <div class="o_kanban_record_headings">
+                                            <strong class="o_kanban_record_title">
+                                                <field name="name"/>
+                                            </strong>
+                                            <br/>
+                                            <field name="partner_id"/>
+                                        </div>
+                                        <div class="o_kanban_record_body">
+                                            <field name="amount_total"/>
+                                            <br/>
+                                            <field name="document_type"/>
+                                        </div>
+                                    </div>
+                                    <div class="o_kanban_record_bottom">
+                                        <div class="oe_kanban_bottom_left">
+                                            <field name="state"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        
+        <!-- Acciones de ventana -->
+        <record id="action_electronic_invoice" model="ir.actions.act_window">
+            <field name="name">Facturas Electrónicas</field>
+            <field name="res_model">electronic.invoice</field>
+            <field name="view_mode">kanban,list,form</field>
+            <field name="search_view_id" ref="view_electronic_invoice_search"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No hay facturas electrónicas
+                </p>
+                <p>
+                    Las facturas electrónicas se crean automáticamente desde las facturas normales
+                    o se pueden crear manualmente desde el menú de facturación.
+                </p>
+            </field>
+        </record>
+        
+    </data>
+</odoo>

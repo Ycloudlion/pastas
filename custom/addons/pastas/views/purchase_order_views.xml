@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!-- Extensión de la vista de formulario de orden de compra -->
+        <record id="view_purchase_order_form_electronic" model="ir.ui.view">
+            <field name="name">purchase.order.form.electronic</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <button name="action_create_electronic_invoice" string="Crear Factura Electrónica" 
+                            type="object" class="btn-primary" 
+                            invisible="is_electronic or state != 'purchase'"/>
+                    <button name="action_send_electronic_invoice" string="Enviar al DGI" 
+                            type="object" class="btn-primary" 
+                            invisible="not is_electronic or electronic_state not in ['draft', 'sent']"/>
+                    <button name="action_check_electronic_status" string="Verificar Estado" 
+                            type="object" class="btn-secondary" 
+                            invisible="not is_electronic or electronic_state != 'sent'"/>
+                    <button name="action_cancel_electronic_invoice" string="Cancelar Electrónica" 
+                            type="object" class="btn-danger" 
+                            invisible="not is_electronic or electronic_state not in ['draft', 'sent']"/>
+                </xpath>
+                
+                <xpath expr="//field[@name='state']" position="after">
+                    <field name="is_electronic" invisible="1"/>
+                    <field name="electronic_state" widget="label_selection" 
+                           invisible="not is_electronic"/>
+                    <field name="dgi_number" invisible="not is_electronic"/>
+                    <field name="authorization_code" invisible="not is_electronic"/>
+                    <field name="authorization_date" invisible="not is_electronic"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <!-- Extensión de la vista de lista de órdenes de compra -->
+        <record id="view_purchase_order_tree_electronic" model="ir.ui.view">
+            <field name="name">purchase.order.tree.electronic</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='state']" position="after">
+                    <field name="is_electronic" widget="boolean_button"/>
+                    <field name="electronic_state" widget="label_selection" 
+                           invisible="not is_electronic"/>
+                    <field name="dgi_number" invisible="not is_electronic"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <!-- Extensión de la vista de búsqueda de órdenes de compra -->
+        <record id="view_purchase_order_filter_electronic" model="ir.ui.view">
+            <field name="name">purchase.order.filter.electronic</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.view_purchase_order_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="is_electronic"/>
+                    <field name="electronic_state"/>
+                </xpath>
+                
+                <xpath expr="//search" position="inside">
+                    <separator/>
+                    <filter string="Facturas Electrónicas" name="electronic" domain="[('is_electronic', '=', True)]"/>
+                    <filter string="No Electrónicas" name="not_electronic" domain="[('is_electronic', '=', False)]"/>
+                    <separator/>
+                    <filter string="Estado Electrónico" name="group_electronic_state" 
+                            context="{'group_by': 'electronic_state'}"/>
+                </xpath>
+            </field>
+        </record>
+        
+    </data>
+</odoo>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!-- Extensión de la vista de formulario de contactos -->
+        <record id="view_partner_form_electronic" model="ir.ui.view">
+            <field name="name">res.partner.form.electronic</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='vat']" position="after">
+                    <field name="ruc" placeholder="12345678" help="Registro Único de Contribuyente (8 dígitos)"/>
+                    <field name="dv" placeholder="1" help="Dígito Verificador (1 dígito)"/>
+                    <field name="commercial_name" help="Nombre comercial del cliente/proveedor"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <!-- Extensión de la vista de lista de contactos -->
+        <record id="view_partner_tree_electronic" model="ir.ui.view">
+            <field name="name">res.partner.tree.electronic</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='vat']" position="after">
+                    <field name="ruc" optional="hide"/>
+                    <field name="dv" optional="hide"/>
+                </xpath>
+            </field>
+        </record>
+        
+    </data>
+</odoo>

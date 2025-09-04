@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!-- Vista de formulario para configuración DGI -->
+        <record id="view_dgi_config_form" model="ir.ui.view">
+            <field name="name">dgi.config.form</field>
+            <field name="model">dgi.config</field>
+            <field name="arch" type="xml">
+                <form string="Configuración DGI Panamá">
+                    <header>
+                        <button name="test_connection" string="Probar Conexión" type="object" 
+                                class="btn-primary" invisible="not is_configured"/>
+                        <field name="is_configured" widget="boolean_button"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="company_id" options="{'no_create': True}"/>
+                            </h1>
+                        </div>
+                        
+                        <group>
+                            <group string="Datos de la Empresa">
+                                <field name="ruc"/>
+                                <field name="dv"/>
+                                <field name="company_name"/>
+                                <field name="commercial_name"/>
+                                <field name="address" widget="text"/>
+                                <field name="phone"/>
+                                <field name="email"/>
+                            </group>
+                            <group string="Configuración PAC">
+                                <field name="pac_provider"/>
+                                <field name="pac_username"/>
+                                <field name="pac_password" password="True"/>
+                                <field name="pac_url"/>
+                            </group>
+                        </group>
+                        
+                        <notebook>
+                            <page string="Certificado Digital">
+                                <group>
+                                    <field name="certificate_file" widget="binary" filename="certificate_filename"/>
+                                    <field name="certificate_filename" invisible="1"/>
+                                    <field name="certificate_password" password="True"/>
+                                </group>
+                            </page>
+                            
+                            <page string="Secuencias">
+                                <group>
+                                    <field name="invoice_sequence_id"/>
+                                    <field name="credit_note_sequence_id"/>
+                                    <field name="debit_note_sequence_id"/>
+                                </group>
+                            </page>
+                            
+                            <page string="Impuestos ITBMS">
+                                <group>
+                                    <field name="tax_18_id"/>
+                                    <field name="tax_10_id"/>
+                                    <field name="tax_15_id"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Vista de lista para configuración DGI -->
+        <record id="view_dgi_config_tree" model="ir.ui.view">
+            <field name="name">dgi.config.tree</field>
+            <field name="model">dgi.config</field>
+            <field name="arch" type="xml">
+                <list string="Configuraciones DGI">
+                    <field name="company_id"/>
+                    <field name="ruc"/>
+                    <field name="company_name"/>
+                    <field name="pac_provider"/>
+                    <field name="pac_environment"/>
+                    <field name="is_configured" widget="boolean_button"/>
+                </list>
+            </field>
+        </record>
+        
+        <!-- Vista de búsqueda para configuración DGI -->
+        <record id="view_dgi_config_search" model="ir.ui.view">
+            <field name="name">dgi.config.search</field>
+            <field name="model">dgi.config</field>
+            <field name="arch" type="xml">
+                <search string="Buscar Configuraciones DGI">
+                    <field name="company_id"/>
+                    <field name="ruc"/>
+                    <field name="company_name"/>
+                    <field name="pac_provider"/>
+                    <separator/>
+                    <filter string="Configurado" name="configured" domain="[('is_configured', '=', True)]"/>
+                    <filter string="No Configurado" name="not_configured" domain="[('is_configured', '=', False)]"/>
+                    <separator/>
+                    <filter string="Pruebas" name="test" domain="[('pac_environment', '=', 'test')]"/>
+                    <filter string="Producción" name="production" domain="[('pac_environment', '=', 'production')]"/>
+                </search>
+            </field>
+        </record>
+        
+        <!-- Acciones de ventana -->
+        <record id="action_dgi_config" model="ir.actions.act_window">
+            <field name="name">Configuración DGI</field>
+            <field name="res_model">dgi.config</field>
+            <field name="view_mode">list,form</field>
+            <field name="search_view_id" ref="view_dgi_config_search"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Configure los datos de facturación electrónica
+                </p>
+                <p>
+                    Configure los datos de su empresa, certificado digital y proveedor PAC
+                    para poder emitir facturas electrónicas según las regulaciones del DGI.
+                </p>
+            </field>
+        </record>
+        
+    </data>
+</odoo>

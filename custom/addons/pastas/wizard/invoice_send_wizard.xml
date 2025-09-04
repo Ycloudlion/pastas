@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!-- Vista del wizard para envío de facturas -->
+        <record id="view_invoice_send_wizard_form" model="ir.ui.view">
+            <field name="name">invoice.send.wizard.form</field>
+            <field name="model">invoice.send.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Enviar Facturas Electrónicas">
+                    <group>
+                        <field name="move_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                        <field name="send_type"/>
+                        <field name="test_mode"/>
+                    </group>
+                    <footer>
+                        <button name="action_send_invoices" string="Enviar Facturas" type="object" class="btn-primary"/>
+                        <button name="action_check_status" string="Verificar Estado" type="object" class="btn-secondary"/>
+                        <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Acción del wizard -->
+        <record id="action_invoice_send_wizard" model="ir.actions.act_window">
+            <field name="name">Enviar Facturas Electrónicas</field>
+            <field name="res_model">invoice.send.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+    </data>
+</odoo>

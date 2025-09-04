@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <!-- Secuencia para facturas electrónicas -->
+        <record id="seq_electronic_invoice" model="ir.sequence">
+            <field name="name">Facturas Electrónicas</field>
+            <field name="code">electronic.invoice</field>
+            <field name="prefix">FE-</field>
+            <field name="padding">8</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        
+        <!-- Secuencia para notas de crédito electrónicas -->
+        <record id="seq_electronic_credit_note" model="ir.sequence">
+            <field name="name">Notas de Crédito Electrónicas</field>
+            <field name="code">electronic.credit.note</field>
+            <field name="prefix">NCE-</field>
+            <field name="padding">8</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        
+        <!-- Secuencia para notas de débito electrónicas -->
+        <record id="seq_electronic_debit_note" model="ir.sequence">
+            <field name="name">Notas de Débito Electrónicas</field>
+            <field name="code">electronic.debit.note</field>
+            <field name="prefix">NDE-</field>
+            <field name="padding">8</field>
+            <field name="number_next">1</field>
+            <field name="number_increment">1</field>
+            <field name="company_id" eval="False"/>
+        </record>
+        
+    </data>
+</odoo>

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!-- Reporte PDF de facturas electrónicas -->
+        <template id="report_electronic_invoice" name="Reporte de Facturas Electrónicas">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="doc">
+                    <t t-call="web.external_layout">
+                        <div class="page">
+                            <div class="oe_structure"/>
+                            
+                            <div class="row">
+                                <div class="col-6">
+                                    <h3>Información del Documento</h3>
+                                    <table class="table table-sm">
+                                        <tr>
+                                            <td><strong>Número:</strong></td>
+                                            <td><span t-field="doc.name"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Número DGI:</strong></td>
+                                            <td><span t-field="doc.number"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Tipo:</strong></td>
+                                            <td><span t-field="doc.document_type"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Fecha:</strong></td>
+                                            <td><span t-field="doc.invoice_date"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Estado:</strong></td>
+                                            <td><span t-field="doc.state"/></td>
+                                        </tr>
+                                        <tr t-if="doc.authorization_code">
+                                            <td><strong>Código de Autorización:</strong></td>
+                                            <td><span t-field="doc.authorization_code"/></td>
+                                        </tr>
+                                        <tr t-if="doc.authorization_date">
+                                            <td><strong>Fecha de Autorización:</strong></td>
+                                            <td><span t-field="doc.authorization_date"/></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                
+                                <div class="col-6">
+                                    <h3>Información del Cliente</h3>
+                                    <table class="table table-sm">
+                                        <tr>
+                                            <td><strong>Cliente:</strong></td>
+                                            <td><span t-field="doc.partner_id.name"/></td>
+                                        </tr>
+                                        <tr t-if="doc.partner_id.vat">
+                                            <td><strong>RUC:</strong></td>
+                                            <td><span t-field="doc.partner_id.vat"/></td>
+                                        </tr>
+                                        <tr t-if="doc.partner_id.street">
+                                            <td><strong>Dirección:</strong></td>
+                                            <td><span t-field="doc.partner_id.street"/></td>
+                                        </tr>
+                                        <tr t-if="doc.partner_id.phone">
+                                            <td><strong>Teléfono:</strong></td>
+                                            <td><span t-field="doc.partner_id.phone"/></td>
+                                        </tr>
+                                        <tr t-if="doc.partner_id.email">
+                                            <td><strong>Email:</strong></td>
+                                            <td><span t-field="doc.partner_id.email"/></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-3">
+                                <div class="col-12">
+                                    <h3>Montos</h3>
+                                    <table class="table table-sm">
+                                        <tr>
+                                            <td><strong>Subtotal:</strong></td>
+                                            <td><span t-field="doc.amount_untaxed"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Impuestos:</strong></td>
+                                            <td><span t-field="doc.amount_tax"/></td>
+                                        </tr>
+                                        <tr>
+                                            <td><strong>Total:</strong></td>
+                                            <td><span t-field="doc.amount_total"/></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            
+                            <div class="row mt-3" t-if="doc.response_message">
+                                <div class="col-12">
+                                    <h3>Mensaje de Respuesta</h3>
+                                    <p><span t-field="doc.response_message"/></p>
+                                </div>
+                            </div>
+                            
+                            <div class="oe_structure"/>
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </template>
+        
+        <!-- Vista del wizard para reporte -->
+        <record id="view_electronic_invoice_report_wizard_form" model="ir.ui.view">
+            <field name="name">electronic.invoice.report.wizard.form</field>
+            <field name="model">electronic.invoice.report.wizard</field>
+            <field name="arch" type="xml">
+                <form string="Generar Reporte de Facturas Electrónicas">
+                    <group>
+                        <group>
+                            <field name="date_from"/>
+                            <field name="date_to"/>
+                            <field name="state"/>
+                        </group>
+                        <group>
+                            <field name="document_type"/>
+                            <field name="partner_id"/>
+                            <field name="company_id"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="action_generate_report" string="Generar Reporte" type="object" class="btn-primary"/>
+                        <button string="Cancelar" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Acción del wizard de reporte -->
+        <record id="action_electronic_invoice_report_wizard" model="ir.actions.act_window">
+            <field name="name">Generar Reporte de Facturas Electrónicas</field>
+            <field name="res_model">electronic.invoice.report.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+        <!-- Acción del reporte -->
+        <record id="action_electronic_invoice_report" model="ir.actions.act_window">
+            <field name="name">Reporte de Facturas Electrónicas</field>
+            <field name="res_model">electronic.invoice.report.wizard</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+        
+    </data>
+</odoo>

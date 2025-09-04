@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        
+        <!-- Categoría de seguridad -->
+        <record id="module_category_electronic_invoicing" model="ir.module.category">
+            <field name="name">Facturación Electrónica</field>
+            <field name="description">Módulo de facturación electrónica DGI Panamá</field>
+            <field name="sequence">50</field>
+        </record>
+        
+        <!-- Grupo de usuarios -->
+        <record id="group_electronic_invoice_user" model="res.groups">
+            <field name="name">Usuario Facturación Electrónica</field>
+            <field name="category_id" ref="module_category_electronic_invoicing"/>
+            <field name="implied_ids" eval="[(4, ref('account.group_account_user'))]"/>
+        </record>
+        
+        <!-- Grupo de administradores -->
+        <record id="group_electronic_invoice_manager" model="res.groups">
+            <field name="name">Administrador Facturación Electrónica</field>
+            <field name="category_id" ref="module_category_electronic_invoicing"/>
+            <field name="implied_ids" eval="[(4, ref('group_electronic_invoice_user')), (4, ref('account.group_account_manager'))]"/>
+        </record>
+        
+    </data>
+</odoo>
