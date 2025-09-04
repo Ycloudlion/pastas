@@ -1,47 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <data noupdate="1">
+    <data>
         
-        <!-- Configuración DGI de demostración -->
-        <record id="demo_dgi_config" model="dgi.config">
+        <!-- Configuración DGI con datos reales de Pastas Frescas -->
+        <record id="real_dgi_config" model="dgi.config">
             <field name="company_id" ref="base.main_company"/>
-            <field name="ruc">12345678</field>
-            <field name="dv">1</field>
-            <field name="company_name">Empresa Demo S.A.</field>
-            <field name="commercial_name">Demo Corp</field>
-            <field name="address">Calle 50, Edificio Plaza, Piso 15, Ciudad de Panamá</field>
-            <field name="phone">+507 1234-5678</field>
-            <field name="email">demo@empresa.com</field>
-            <field name="pac_provider">iofacturo</field>
-            <field name="pac_environment">test</field>
-            <field name="pac_username">demo_user</field>
-            <field name="pac_password">demo_password</field>
-            <field name="pac_url">https://test.iofacturo.com/api</field>
-            <field name="invoice_sequence_id" ref="seq_electronic_invoice"/>
-            <field name="credit_note_sequence_id" ref="seq_electronic_credit_note"/>
-            <field name="debit_note_sequence_id" ref="seq_electronic_debit_note"/>
-        </record>
-        
-        <!-- Cliente de demostración -->
-        <record id="demo_partner" model="res.partner">
-            <field name="name">Cliente Demo S.A.</field>
-            <field name="vat">87654321-2</field>
-            <field name="street">Avenida Balboa, Edificio Torre, Piso 10</field>
-            <field name="phone">+507 8765-4321</field>
-            <field name="email">cliente@demo.com</field>
-            <field name="is_company">True</field>
-            <field name="customer_rank">1</field>
-        </record>
-        
-        <!-- Proveedor de demostración -->
-        <record id="demo_supplier" model="res.partner">
-            <field name="name">Proveedor Demo S.A.</field>
-            <field name="vat">11223344-3</field>
-            <field name="street">Calle 50, Edificio Comercial, Local 5</field>
-            <field name="phone">+507 5555-6666</field>
-            <field name="email">proveedor@demo.com</field>
-            <field name="is_company">True</field>
-            <field name="supplier_rank">1</field>
+            <field name="ruc">11703330</field>
+            <field name="dv">5</field>
+            <field name="company_name">Pastas Frescas, S.A.</field>
+            <field name="commercial_name">Pastas Frescas</field>
+            <field name="address">Calle Avenida 8A Norte Calle 64 Oeste, Edificio Mas Espacio, Local 3, Urbanización Industrial Los Angeles, Panama City, Panamá</field>
+            <field name="phone">+507 200-0000</field>
+            <field name="email">contabilidad@pastasfrescas.com</field>
+            <field name="pac_provider">the_factory_hka</field>
+            <field name="pac_username">byxyhbmumrxv_tfhka</field>
+            <field name="pac_password">m:v*0aU+3L5d</field>
+            <field name="pac_url">https://demoemision.thefactoryhka.com.pa/ws/obj/v1.0/Service.svc?wsdl</field>
         </record>
         
     </data>

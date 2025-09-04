@@ -78,7 +78,6 @@
                     <field name="ruc"/>
                     <field name="company_name"/>
                     <field name="pac_provider"/>
-                    <field name="pac_environment"/>
                     <field name="is_configured" widget="boolean_button"/>
                 </list>
             </field>
@@ -97,9 +96,6 @@
                     <separator/>
                     <filter string="Configurado" name="configured" domain="[('is_configured', '=', True)]"/>
                     <filter string="No Configurado" name="not_configured" domain="[('is_configured', '=', False)]"/>
-                    <separator/>
-                    <filter string="Pruebas" name="test" domain="[('pac_environment', '=', 'test')]"/>
-                    <filter string="Producción" name="production" domain="[('pac_environment', '=', 'production')]"/>
                 </search>
             </field>
         </record>
