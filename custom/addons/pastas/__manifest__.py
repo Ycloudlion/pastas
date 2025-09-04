@@ -39,6 +39,8 @@
         'views/electronic_invoice_views.xml',
         'views/account_invoice_views.xml',
         'views/purchase_order_views.xml',
+        'views/pos_order_views.xml',
+        'views/branch_views.xml',
         'wizard/invoice_send_wizard.xml',
         'reports/electronic_invoice_report.xml',
         'views/menu.xml',

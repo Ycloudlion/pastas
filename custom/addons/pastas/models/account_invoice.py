@@ -116,3 +116,14 @@ class AccountMove(models.Model):
             raise UserError(_('No hay factura electrónica asociada.'))
         
         return self.electronic_invoice_id[0].cancel_invoice()
+    
+    def action_post(self):
+        """Override para crear factura electrónica automáticamente"""
+        res = super().action_post()
+        
+        # Crear factura electrónica solo para facturas de venta
+        for move in self:
+            if move.move_type in ['out_invoice', 'out_refund'] and not move.electronic_invoice_id:
+                self._create_electronic_invoice(move)
+        
+        return res

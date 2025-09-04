@@ -2,20 +2,66 @@
 <odoo>
     <data>
         
-        <!-- Configuración DGI con datos reales de Pastas Frescas -->
+        <!-- Configuración DGI principal de Pastas Frescas -->
         <record id="real_dgi_config" model="dgi.config">
             <field name="company_id" ref="base.main_company"/>
             <field name="ruc">11703330</field>
             <field name="dv">5</field>
             <field name="company_name">Pastas Frescas, S.A.</field>
             <field name="commercial_name">Pastas Frescas</field>
-            <field name="address">Calle Avenida 8A Norte Calle 64 Oeste, Edificio Mas Espacio, Local 3, Urbanización Industrial Los Angeles, Panama City, Panamá</field>
-            <field name="phone">+507 200-0000</field>
+            <field name="address">VIA ESPAÑA CON VIA BRASIL GALERIA OBARRIO PLANTA BAJA, Panamá, Panamá</field>
+            <field name="phone">000-0000</field>
             <field name="email">contabilidad@pastasfrescas.com</field>
             <field name="pac_provider">the_factory_hka</field>
             <field name="pac_username">byxyhbmumrxv_tfhka</field>
             <field name="pac_password">m:v*0aU+3L5d</field>
             <field name="pac_url">https://demoemision.thefactoryhka.com.pa/ws/obj/v1.0/Service.svc?wsdl</field>
+        </record>
+        
+        <!-- Sucursales de Pastas Frescas -->
+        <record id="branch_betania" model="branch">
+            <field name="name">Cafetería Betania</field>
+            <field name="code">BETANIA</field>
+            <field name="address">Los Ángeles, Panamá</field>
+            <field name="phone">000-0000</field>
+            <field name="email">betania@pastasfrescas.com</field>
+            <field name="dgi_config_id" ref="real_dgi_config"/>
+        </record>
+        
+        <record id="branch_cde" model="branch">
+            <field name="name">Cafetería Costa Del Este</field>
+            <field name="code">CDE</field>
+            <field name="address">Costa Del Este, Panamá</field>
+            <field name="phone">000-0000</field>
+            <field name="email">cde@pastasfrescas.com</field>
+            <field name="dgi_config_id" ref="real_dgi_config"/>
+        </record>
+        
+        <record id="branch_obarrio" model="branch">
+            <field name="name">Cafetería Obarrio</field>
+            <field name="code">OBARRIO</field>
+            <field name="address">Obarrio, Panamá</field>
+            <field name="phone">000-0000</field>
+            <field name="email">obarrio@pastasfrescas.com</field>
+            <field name="dgi_config_id" ref="real_dgi_config"/>
+        </record>
+        
+        <record id="branch_paseo" model="branch">
+            <field name="name">Cafetería Paseo Drive</field>
+            <field name="code">PASEO</field>
+            <field name="address">Paseo Drive, Panamá</field>
+            <field name="phone">000-0000</field>
+            <field name="email">paseo@pastasfrescas.com</field>
+            <field name="dgi_config_id" ref="real_dgi_config"/>
+        </record>
+        
+        <record id="branch_planta" model="branch">
+            <field name="name">Pastas Frescas Planta</field>
+            <field name="code">PLANTA</field>
+            <field name="address">Los Ángeles, Panamá</field>
+            <field name="phone">000-0000</field>
+            <field name="email">planta@pastasfrescas.com</field>
+            <field name="dgi_config_id" ref="real_dgi_config"/>
         </record>
         
     </data>

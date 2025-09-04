@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!-- Vista de formulario para órdenes POS con facturación electrónica -->
+        <record id="view_pos_order_form_electronic_invoicing" model="ir.ui.view">
+            <field name="name">pos.order.form.electronic.invoicing</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="is_electronic" invisible="1"/>
+                    <field name="electronic_invoice_id" invisible="not is_electronic"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <!-- Vista de lista para órdenes POS con facturación electrónica -->
+        <record id="view_pos_order_tree_electronic_invoicing" model="ir.ui.view">
+            <field name="name">pos.order.tree.electronic.invoicing</field>
+            <field name="model">pos.order</field>
+            <field name="inherit_id" ref="point_of_sale.view_pos_order_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="is_electronic" optional="hide"/>
+                </xpath>
+            </field>
+        </record>
+        
+    </data>
+</odoo>

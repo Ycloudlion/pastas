@@ -28,6 +28,13 @@
                   parent="menu_electronic_invoicing" 
                   sequence="30"/>
         
+        <!-- Menú de sucursales -->
+        <menuitem id="menu_branches" 
+                  name="Sucursales" 
+                  parent="menu_electronic_invoicing" 
+                  action="action_branch" 
+                  sequence="15"/>
+        
         <!-- Reporte de facturas electronicas -->
         <menuitem id="menu_electronic_invoice_report" 
                   name="Reporte de Facturas Electronicas" 

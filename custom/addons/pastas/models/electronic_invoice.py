@@ -42,6 +42,16 @@ class ElectronicInvoice(models.Model):
         string='Orden de Compra',
         ondelete='cascade'
     )
+    pos_order_id = fields.Many2one(
+        'pos.order',
+        string='Orden POS',
+        ondelete='cascade'
+    )
+    branch_id = fields.Many2one(
+        'branch',
+        string='Sucursal',
+        help='Sucursal desde donde se emitió la factura'
+    )
     company_id = fields.Many2one(
         'res.company',
         string='Empresa',

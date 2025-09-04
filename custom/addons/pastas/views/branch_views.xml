@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!-- Vista de formulario para sucursales -->
+        <record id="view_branch_form" model="ir.ui.view">
+            <field name="name">branch.form</field>
+            <field name="model">branch</field>
+            <field name="arch" type="xml">
+                <form string="Sucursal">
+                    <header>
+                        <field name="is_active" widget="boolean_button"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Nombre de la sucursal"/>
+                            </h1>
+                        </div>
+                        
+                        <group>
+                            <group string="Información General">
+                                <field name="code" placeholder="BETANIA"/>
+                                <field name="manager_id"/>
+                                <field name="is_active"/>
+                            </group>
+                            <group string="Contacto">
+                                <field name="phone"/>
+                                <field name="email"/>
+                            </group>
+                        </group>
+                        
+                        <group string="Dirección">
+                            <field name="address" widget="text"/>
+                        </group>
+                        
+                        <notebook>
+                            <page string="Configuración DGI">
+                                <field name="dgi_config_id" options="{'no_create': True}"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Vista de lista para sucursales -->
+        <record id="view_branch_tree" model="ir.ui.view">
+            <field name="name">branch.tree</field>
+            <field name="model">branch</field>
+            <field name="arch" type="xml">
+                <list string="Sucursales">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="phone"/>
+                    <field name="email"/>
+                    <field name="manager_id"/>
+                    <field name="is_active" widget="boolean_toggle"/>
+                </list>
+            </field>
+        </record>
+        
+        <!-- Vista de búsqueda para sucursales -->
+        <record id="view_branch_search" model="ir.ui.view">
+            <field name="name">branch.search</field>
+            <field name="model">branch</field>
+            <field name="arch" type="xml">
+                <search string="Buscar Sucursales">
+                    <field name="name"/>
+                    <field name="code"/>
+                    <field name="manager_id"/>
+                    <separator/>
+                    <filter string="Activas" name="active" domain="[('is_active', '=', True)]"/>
+                    <filter string="Inactivas" name="inactive" domain="[('is_active', '=', False)]"/>
+                </search>
+            </field>
+        </record>
+        
+        <!-- Acción de ventana para sucursales -->
+        <record id="action_branch" model="ir.actions.act_window">
+            <field name="name">Sucursales</field>
+            <field name="res_model">branch</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Crear una nueva sucursal
+                </p>
+                <p>
+                    Las sucursales permiten organizar las diferentes ubicaciones de tu empresa
+                    y configurar la facturación electrónica específica para cada una.
+                </p>
+            </field>
+        </record>
+        
+    </data>
+</odoo>
