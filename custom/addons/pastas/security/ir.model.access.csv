@@ -3,3 +3,6 @@ access_dgi_config_manager,dgi.config.manager,model_dgi_config,account.group_acco
 access_dgi_config_user,dgi.config.user,model_dgi_config,account.group_account_user,1,0,0,0
 access_electronic_invoice_manager,electronic.invoice.manager,model_electronic_invoice,account.group_account_manager,1,1,1,1
 access_electronic_invoice_user,electronic.invoice.user,model_electronic_invoice,account.group_account_user,1,1,1,0
+access_branch_manager,branch.manager,model_branch,account.group_account_manager,1,1,1,1
+access_branch_user,branch.user,model_branch,account.group_account_user,1,0,0,0
+access_branch_pos,branch.pos,model_branch,point_of_sale.group_pos_user,1,0,0,0

@@ -147,7 +147,29 @@ class DgiConfig(models.Model):
     @api.model
     def get_dgi_config(self):
         """Obtiene la configuración DGI de la empresa actual"""
-        return self.search([('company_id', '=', self.env.user.company_id.id)], limit=1)
+        # Buscar configuración para la empresa actual
+        config = self.search([('company_id', '=', self.env.user.company_id.id)], limit=1)
+        if config:
+            return config
+        
+        # Si no hay configuración para la empresa actual, buscar cualquier configuración
+        config = self.search([], limit=1)
+        if config:
+            return config
+        
+        # Si no hay ninguna configuración, crear una por defecto
+        return self.create({
+            'company_id': self.env.user.company_id.id,
+            'ruc': '00000000',
+            'dv': '0',
+            'company_name': 'Empresa Demo',
+            'commercial_name': 'Demo',
+            'address': 'Dirección Demo',
+            'pac_provider': 'the_factory_hka',
+            'pac_username': 'demo',
+            'pac_password': 'demo',
+            'pac_url': 'https://demoemision.thefactoryhka.com.pa/ws/obj/v1.0/Service.svc?wsdl'
+        })
     
     def test_connection(self):
         """Prueba la conexión con el PAC"""

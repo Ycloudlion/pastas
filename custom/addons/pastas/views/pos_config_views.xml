@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        
+        <!-- Vista de formulario para configuración POS -->
+        <record id="view_pos_config_form_electronic" model="ir.ui.view">
+            <field name="name">pos.config.form.electronic</field>
+            <field name="model">pos.config</field>
+            <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='module_pos_restaurant']" position="after">
+                    <field name="enable_electronic_invoice"/>
+                    <field name="dgi_config_id" invisible="not enable_electronic_invoice"/>
+                    <field name="branch_id" invisible="not enable_electronic_invoice"/>
+                </xpath>
+            </field>
+        </record>
+        
+    </data>
+</odoo>

@@ -1,0 +1,54 @@
+/* Estilos para facturación electrónica en POS */
+.electronic-invoice-button {
+    background-color: #2E7D32;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.electronic-invoice-button:hover {
+    background-color: #1B5E20;
+}
+
+.electronic-invoice-button:disabled {
+    background-color: #9E9E9E;
+    cursor: not-allowed;
+}
+
+.electronic-invoice-status {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.electronic-invoice-status.draft {
+    background-color: #FFC107;
+    color: #000;
+}
+
+.electronic-invoice-status.sent {
+    background-color: #2196F3;
+    color: white;
+}
+
+.electronic-invoice-status.authorized {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.electronic-invoice-status.rejected {
+    background-color: #F44336;
+    color: white;
+}
+
+.electronic-invoice-status.cancelled {
+    background-color: #9E9E9E;
+    color: white;
+}

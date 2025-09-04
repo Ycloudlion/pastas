@@ -45,8 +45,8 @@
         </record>
         
         <!-- Vista de lista para sucursales -->
-        <record id="view_branch_tree" model="ir.ui.view">
-            <field name="name">branch.tree</field>
+        <record id="view_branch_list" model="ir.ui.view">
+            <field name="name">branch.list</field>
             <field name="model">branch</field>
             <field name="arch" type="xml">
                 <list string="Sucursales">
@@ -80,7 +80,7 @@
         <record id="action_branch" model="ir.actions.act_window">
             <field name="name">Sucursales</field>
             <field name="res_model">branch</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">list,form</field>
             <field name="help" type="html">
                 <p class="o_view_nocontent_smiling_face">
                     Crear una nueva sucursal

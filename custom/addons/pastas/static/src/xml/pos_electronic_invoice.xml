@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t t-name="ElectronicInvoiceButton" owl="1">
+        <button class="btn btn-primary electronic-invoice-button" t-if="!props.order.electronic_invoice_id">
+            <i class="fa fa-file-text-o"/> Factura Electrónica
+        </button>
+        <button class="btn btn-success electronic-invoice-button" t-else="">
+            <i class="fa fa-check"/> Factura Electrónica Creada
+        </button>
+    </t>
+</templates>
