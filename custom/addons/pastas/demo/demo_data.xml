@@ -25,9 +25,7 @@
         <!-- Cliente de demostración -->
         <record id="demo_partner" model="res.partner">
             <field name="name">Cliente Demo S.A.</field>
-            <field name="ruc">87654321</field>
-            <field name="dv">2</field>
-            <field name="commercial_name">Cliente Demo</field>
+            <field name="vat">87654321-2</field>
             <field name="street">Avenida Balboa, Edificio Torre, Piso 10</field>
             <field name="phone">+507 8765-4321</field>
             <field name="email">cliente@demo.com</field>
@@ -38,9 +36,7 @@
         <!-- Proveedor de demostración -->
         <record id="demo_supplier" model="res.partner">
             <field name="name">Proveedor Demo S.A.</field>
-            <field name="ruc">11223344</field>
-            <field name="dv">3</field>
-            <field name="commercial_name">Proveedor Demo</field>
+            <field name="vat">11223344-3</field>
             <field name="street">Calle 50, Edificio Comercial, Local 5</field>
             <field name="phone">+507 5555-6666</field>
             <field name="email">proveedor@demo.com</field>

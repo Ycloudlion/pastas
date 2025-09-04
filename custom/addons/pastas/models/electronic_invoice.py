@@ -214,8 +214,16 @@ class ElectronicInvoice(models.Model):
         
         # Información del receptor
         receptor = ET.SubElement(root, 'Receptor')
-        ET.SubElement(receptor, 'RUC').text = self.partner_id.ruc or self.partner_id.vat or ''
-        ET.SubElement(receptor, 'DV').text = self.partner_id.dv or ''
+        # Usar VAT como RUC (formato: 12345678-1)
+        partner_vat = self.partner_id.vat or ''
+        if '-' in partner_vat:
+            ruc, dv = partner_vat.split('-', 1)
+            ET.SubElement(receptor, 'RUC').text = ruc
+            ET.SubElement(receptor, 'DV').text = dv
+        else:
+            ET.SubElement(receptor, 'RUC').text = partner_vat
+            ET.SubElement(receptor, 'DV').text = ''
+        
         ET.SubElement(receptor, 'RazonSocial').text = self.partner_id.name
         ET.SubElement(receptor, 'Direccion').text = self.partner_id.street or ''
         ET.SubElement(receptor, 'Telefono').text = self.partner_id.phone or ''

@@ -4,4 +4,3 @@ from . import dgi_config
 from . import electronic_invoice
 from . import account_invoice
 from . import purchase_order
-from . import res_partner
